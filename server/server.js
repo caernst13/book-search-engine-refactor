@@ -1,15 +1,17 @@
 const express = require('express');
-const { appolloServer } = require('apollo-server-sxpress')
+const { ApolloServer } = require('apollo-server-express')
 const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas')
 const db = require('./config/connection');
+const { authMiddleware } = require('./utils/auth');
 
-const PORT = process.env.PORT || 3001;
 const app = express();
-const server = new appolloServer({
+const PORT = process.env.PORT || 3001;
+const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware
 })
 
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +28,7 @@ app.get('/', (req, res) => {
 
 const startApolloServer = async (typeDefs, resolvers) => {
 await server.start();
-server.applyMiddlewater({ app });
+server.applyMiddleware({ app });
 
   db.once('open', () => {
   app.listen(PORT, () => {

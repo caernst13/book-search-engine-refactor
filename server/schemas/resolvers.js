@@ -4,7 +4,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async(_, _, context) => {
+        me: async(_, args, context) => {
             if (context.user) {
                 const user = await User.findById(context.user.id);
                 return user
@@ -45,7 +45,7 @@ const resolvers = {
             }
             throw new AuthenticationError('Not logged in');
           },
-          removebook: async (_, args, context) => {
+          removeBook: async (_, args, context) => {
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(context.user.id,
                     { $pull: { savedBooks: { bookId: args.bookId } } },
