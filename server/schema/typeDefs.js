@@ -18,6 +18,21 @@ const typeDefs = gql`
   password: STRING!
   savedBooks: [bookSchema]
   }
+
+  type Auth {
+    token: ID
+    user: User
+  }
+
+  type query {
+  user: User
+  }
+
+  type mutation {
+  addUser(username: Srting! email: String!, password: String!): Auth
+  login(email: String!, password: String!): Auth
+  }
+
 `;
 
 module.exports = typeDefs;
