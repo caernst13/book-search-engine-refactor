@@ -16,6 +16,7 @@ const typeDefs = gql`
   username: TRING!
   email: STRING!
   password: STRING!
+  bookCount: INT
   savedBooks: [Book]
   }
 
