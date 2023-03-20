@@ -17,10 +17,10 @@ const SignupForm = () => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
+  const addUser = useMutation(ADD_USER)
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const addUser = useMutation(ADD_USER)
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
